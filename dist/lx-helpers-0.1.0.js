@@ -1,3 +1,11 @@
+/*!
+ * lx-helpers - v0.1.0 - 2013-04-10
+ * https://github.com/litixsoft/lx-helpers
+ *
+ * Copyright (c) 2013 Litixsoft GmbH
+ * Licensed MIT
+ */
+
 (function (exports) {
     'use strict';
 

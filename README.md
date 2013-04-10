@@ -1,15 +1,13 @@
-# lx-mongodb [![Build Status](https://travis-ci.org/litixsoft/lx-mongodb.png?branch=master)](https://travis-ci.org/litixsoft/lx-mongodb)
+# lx-helpers [![Build Status](https://travis-ci.org/litixsoft/lx-helpers.png?branch=master)](https://travis-ci.org/litixsoft/lx-helpers)
 
-Litixsoft backend driver for mongoDb based on mongojs.
-
-_(Coming soon)_
+Litixsoft helper functions for Javascript (client and server).
 
 ## Getting Started
 
 ### Install:
 
 ```javascript
-npm install lx-mongodb
+npm install lx-helpers
 ```
 
 ### Usage
@@ -26,11 +24,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-### v0.0.1 project initial
-
-## Roadmap
-
-### v0.1.0 first stable version
+### v0.1.0 project initial
 
 ## License
 Copyright (C) 2013 Litixsoft GmbH <info@litixsoft.de>

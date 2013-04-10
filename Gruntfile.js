@@ -4,7 +4,6 @@ module.exports = function (grunt) {
     var filesToCover = 'lib/**/*.js';
 
     // Project configuration.
-    //noinspection JSUnresolvedFunction,JSUnresolvedVariable
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         banner: '/*!\n' +
@@ -17,6 +16,27 @@ module.exports = function (grunt) {
         // Before generating any new files, remove any previously-created files.
         clean: {
             build: ['build']
+        },
+        concat: {
+            options: {
+                stripBanners: true,
+                banner: '<%= banner %>'
+            },
+            dist: {
+                src: [
+                    'lib/<%= pkg.name %>.js'
+                ],
+                dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
+            }
+        },
+        uglify: {
+            options: {
+                banner: '<%= banner %>'
+            },
+            dist: {
+                src: ['<%= concat.dist.dest %>'],
+                dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
+            }
         },
         jshint: {
             files: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
@@ -44,10 +64,6 @@ module.exports = function (grunt) {
                 browser: true,
                 node: true
             }
-        },
-        watch: {
-            files: '<%= jshint.files %>',
-            tasks: ['jshint:files']
         },
         // istanbul
         instrument: {
@@ -87,17 +103,22 @@ module.exports = function (grunt) {
     });
 
     // Load tasks.
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-istanbul');
 
-    // Default task.
-    grunt.registerTask('default', ['clean', 'jshint:files', 'jasmine_node']);
-
     // Test task.
     grunt.registerTask('test', ['clean', 'jshint:files', 'jasmine_node']);
 
+    // Build task.
+    grunt.registerTask('build', ['test', 'concat', 'uglify']);
+
+    // Default task.
+    grunt.registerTask('default', ['build']);
+
+    // CI task.
     grunt.registerTask('cover', ['clean', 'jshint:files', 'instrument', 'reloadTasks', 'jasmine_node', 'storeCoverage', 'makeReport']);
 };
