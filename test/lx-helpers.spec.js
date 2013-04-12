@@ -401,4 +401,96 @@ describe('LxHelpers', function () {
             expect(res4).toBe('');
         });
     });
+
+    describe('has a function clone which', function () {
+        it('should clone primitive types', function () {
+            var res = lxHelpers.clone('wayne');
+            var res1 = lxHelpers.clone(1);
+            var res2 = lxHelpers.clone(true);
+            var res3 = lxHelpers.clone(null);
+            var res4 = lxHelpers.clone(undefined);
+
+            expect(res).toBe('wayne');
+            expect(res1).toBe(1);
+            expect(res2).toBe(true);
+            expect(res3).toBe(null);
+            expect(res4).toBe(undefined);
+        });
+
+        it('should clone a RegExp', function () {
+            var data = new RegExp('ddd');
+            var res = lxHelpers.clone(data);
+
+            expect(typeof res).toBe('object');
+            expect(res instanceof RegExp).toBeTruthy();
+        });
+
+        it('should clone a Date', function () {
+            var date = new Date(2013, 5, 1);
+            var res = lxHelpers.clone(date);
+
+            date.setYear(2020);
+
+            expect(typeof res).toBe('object');
+            expect(res instanceof Date).toBeTruthy();
+            expect(res.getFullYear()).toBe(2013);
+            expect(date.getFullYear()).toBe(2020);
+        });
+
+        it('should clone an array', function () {
+            var data = [1, 2, 3, 4];
+            var res = lxHelpers.clone(data);
+
+            expect(Array.isArray(res)).toBeTruthy();
+            expect(res.length).toBe(4);
+        });
+
+        it('should clone an object', function () {
+            var data = {
+                id: 1,
+                user: {
+                    name: 'wayne',
+                    isMale: true
+                },
+                start: new Date(),
+                locations: [
+                    {
+                        id: 1,
+                        street: 'street',
+                        zip: '12345',
+                        hasDoor: true,
+                        windows: [
+                            {key: '1'},
+                            {key: '2'},
+                            {key: '3'}
+                        ],
+                        doors: [6, 7, 8]
+                    },
+                    {id: 2, street: 'street1', zip: '22222', hasDoor: true},
+                    {id: 3, street: 'street2', zip: '33333', hasDoor: false}
+                ]
+            };
+            var res = lxHelpers.clone(data);
+
+            // manipulate original object
+            data.user = {
+                name: 'test',
+                isMale: false
+            };
+            data.locations[0].doors = [];
+            data.locations[0].windows[1].key = 'changed';
+            data.start = null;
+
+            expect(typeof res).toBe('object');
+            expect(res.id).toBe(1);
+            expect(res.user.name).toBe('wayne');
+            expect(res.user.isMale).toBe(true);
+            expect(typeof res.start).toBe('object');
+            expect(Array.isArray(res.locations)).toBeTruthy();
+            expect(Array.isArray(res.locations[0].windows)).toBeTruthy();
+            expect(Array.isArray(res.locations[0].doors)).toBeTruthy();
+            expect(res.locations[0].windows[1].key).toBe('2');
+            expect(res.locations[2].hasDoor).toBe(false);
+        });
+    });
 });
