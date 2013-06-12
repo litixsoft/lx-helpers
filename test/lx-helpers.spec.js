@@ -1,7 +1,7 @@
 /*global describe, expect, it */
 'use strict';
 
-var lxHelpers = require('../index.js');
+var lxHelpers = require('../lib/lx-helpers.js');
 
 var data = [
     {id: 1, name: '1'},

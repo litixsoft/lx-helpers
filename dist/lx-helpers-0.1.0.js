@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.1.0 - 2013-04-10
+ * lx-helpers - v0.1.0 - 2013-06-12
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -212,14 +212,6 @@
         }
 
         array.push.apply(array, valuesToPush);
-//
-//        if (valuesToPush instanceof Array) {
-//            array.push.apply(array, valuesToPush);
-//        } else {
-//            for (var i = 0, j = valuesToPush.length; i < j; i++) {
-//                array.push(valuesToPush[i]);
-//            }
-//        }
 
         return array;
     };
@@ -275,6 +267,49 @@
         }
 
         return word.charAt(0).toUpperCase() + word.slice(1);
+    };
+
+    /**
+     * Clones a javascript object, array or primitive
+     *
+     * @param {*} src The source.
+     * @returns {*}
+     */
+    exports.clone = function (src) {
+        var result = {};
+
+        function mixin (dest, source, cloneFunc) {
+            exports.objectForEach(source, function (key, value) {
+                dest[key] = cloneFunc ? cloneFunc(value) : value;
+            });
+
+            return dest;
+        }
+
+        if (!src || typeof src !== 'object' || typeof src === 'function') {
+            return src;
+        }
+
+        // Date
+        if (src instanceof Date) {
+            return new Date(src.getTime());
+        }
+
+        // RegExp
+        if (src instanceof RegExp) {
+            return new RegExp(src);
+        }
+
+        // Array
+        if (Array.isArray(src)) {
+            result = [];
+
+            exports.arrayForEach(src, function (item) {
+                result.push(exports.clone(item));
+            });
+        }
+
+        return mixin(result, src, exports.clone);
     };
 
 })(typeof(window) === 'undefined' ? module.exports : (window.lxHelpers = window.lxHelpers || {}));
