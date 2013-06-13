@@ -24,6 +24,16 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### v0.2.0
+* add zip file in dist folder containing the debug and min version of lx-helpers
+* add function isEmpty() to check if the given value has no items/keys
+* add function isArray() to check if the given value is an array
+* add function isObject() to check if the given value is an object
+* add function isFunction() to check if the given value is a function
+* add function isDate() to check if the given value is a date
+* add function forEach() to iterate over array, objects or functions
+* update devDependencies
+
 ### v0.1.0 project initial
 
 ## License

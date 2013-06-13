@@ -46,6 +46,19 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isFunction('asddad')).toBeFalsy();
     });
 
+    it('has a function isDate() which should return if the given value is a Date', function () {
+        expect(lxHelpers.isDate([])).toBeFalsy();
+        expect(lxHelpers.isDate({})).toBeFalsy();
+        expect(lxHelpers.isDate()).toBeFalsy();
+        expect(lxHelpers.isDate(function () {})).toBeFalsy();
+        expect(lxHelpers.isDate(null)).toBeFalsy();
+        expect(lxHelpers.isDate(undefined)).toBeFalsy();
+        expect(lxHelpers.isDate(true)).toBeFalsy();
+        expect(lxHelpers.isDate(13)).toBeFalsy();
+        expect(lxHelpers.isDate('asddad')).toBeFalsy();
+        expect(lxHelpers.isDate(new Date())).toBeTruthy();
+    });
+
     it('has a function isEmpty() which should return if the given value has no items or keys', function () {
         expect(lxHelpers.isEmpty([])).toBeTruthy();
         expect(lxHelpers.isEmpty({})).toBeTruthy();

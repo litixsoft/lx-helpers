@@ -48,6 +48,16 @@
     };
 
     /**
+     * Returns if the value is a Date.
+     *
+     * @param {*} value The value to test.
+     * @returns {boolean}
+     */
+    exports.isDate = function (value) {
+        return getType(value) === '[object Date]';
+    };
+
+    /**
      * Returns if the value has no items/keys.
      *
      * @param {*} value The value to test.
@@ -104,18 +114,6 @@
         }
 
         return exports.forEach(array, action, context);
-
-//        if (isEmptyArray(array)) {
-//            return;
-//        }
-//
-//        if (!Array.isArray(array)) {
-//            throw new Error('Param "array" is of type ' + typeof array + '! Type Array expected');
-//        }
-//
-//        for (var i = 0, j = array.length; i < j; i++) {
-//            action(array[i]);
-//        }
     };
 
     /**
@@ -292,21 +290,6 @@
         }
 
         return exports.forEach(obj, action, context);
-//        if (!obj) {
-//            return;
-//        }
-//
-//        if (typeof obj !== 'object') {
-//            throw new Error('Param "obj" is of type ' + typeof obj + '! Type Object expected');
-//        }
-//
-//        var i;
-//        var keys = Object.keys(obj);
-//        var length = keys.length;
-//
-//        for (i = 0; i < length; i++) {
-//            action(keys[i], obj[keys[i]]);
-//        }
     };
 
     /**
