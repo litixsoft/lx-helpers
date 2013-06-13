@@ -10,7 +10,65 @@ var data = [
 ];
 
 describe('LxHelpers', function () {
-    describe('has a function arrayFirst which', function () {
+    it('has a function isArray() which should return if the given value is an array', function () {
+        expect(lxHelpers.isArray([])).toBeTruthy();
+        expect(lxHelpers.isArray({})).toBeFalsy();
+        expect(lxHelpers.isArray()).toBeFalsy();
+        expect(lxHelpers.isArray(function () {})).toBeFalsy();
+        expect(lxHelpers.isArray(null)).toBeFalsy();
+        expect(lxHelpers.isArray(undefined)).toBeFalsy();
+        expect(lxHelpers.isArray(true)).toBeFalsy();
+        expect(lxHelpers.isArray(13)).toBeFalsy();
+        expect(lxHelpers.isArray('asddad')).toBeFalsy();
+    });
+
+    it('has a function isObject() which should return if the given value is an object', function () {
+        expect(lxHelpers.isObject([])).toBeFalsy();
+        expect(lxHelpers.isObject({})).toBeTruthy();
+        expect(lxHelpers.isObject()).toBeFalsy();
+        expect(lxHelpers.isObject(function () {})).toBeFalsy();
+        expect(lxHelpers.isObject(null)).toBeFalsy();
+        expect(lxHelpers.isObject(undefined)).toBeFalsy();
+        expect(lxHelpers.isObject(true)).toBeFalsy();
+        expect(lxHelpers.isObject(13)).toBeFalsy();
+        expect(lxHelpers.isObject('asddad')).toBeFalsy();
+    });
+
+    it('has a function isFunction() which should return if the given value is a function', function () {
+        expect(lxHelpers.isFunction([])).toBeFalsy();
+        expect(lxHelpers.isFunction({})).toBeFalsy();
+        expect(lxHelpers.isFunction()).toBeFalsy();
+        expect(lxHelpers.isFunction(function () {})).toBeTruthy();
+        expect(lxHelpers.isFunction(null)).toBeFalsy();
+        expect(lxHelpers.isFunction(undefined)).toBeFalsy();
+        expect(lxHelpers.isFunction(true)).toBeFalsy();
+        expect(lxHelpers.isFunction(13)).toBeFalsy();
+        expect(lxHelpers.isFunction('asddad')).toBeFalsy();
+    });
+
+    it('has a function isEmpty() which should return if the given value has no items or keys', function () {
+        expect(lxHelpers.isEmpty([])).toBeTruthy();
+        expect(lxHelpers.isEmpty({})).toBeTruthy();
+        expect(lxHelpers.isEmpty(function () {})).toBeTruthy();
+        expect(lxHelpers.isEmpty(null)).toBeTruthy();
+        expect(lxHelpers.isEmpty(undefined)).toBeTruthy();
+        expect(lxHelpers.isEmpty(true)).toBeTruthy();
+        expect(lxHelpers.isEmpty(13)).toBeTruthy();
+        expect(lxHelpers.isEmpty('asddad')).toBeTruthy();
+
+        expect(lxHelpers.isEmpty([1, 2, 3])).toBeFalsy();
+        expect(lxHelpers.isEmpty({name: 'wayne'})).toBeFalsy();
+
+        var fn = function () {
+            this.name = 'wayne';
+            return this;
+        };
+        fn.lastname = 'Noob';
+
+        expect(lxHelpers.isEmpty(fn)).toBeFalsy();
+    });
+
+    describe('has a function arrayFirst() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayFirst({}, function () {}); };
             var func3 = function () { return lxHelpers.arrayFirst(1, function () {}); };
@@ -54,7 +112,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function arrayForEach which', function () {
+    describe('has a function arrayForEach() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayForEach({}, function () {}); };
             var func3 = function () { return lxHelpers.arrayForEach(1, function () {}); };
@@ -79,7 +137,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function arrayIndexOf which', function () {
+    describe('has a function arrayIndexOf() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayIndexOf({}, function () {}); };
             var func3 = function () { return lxHelpers.arrayIndexOf(1, function () {}); };
@@ -125,7 +183,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function arrayRemoveItem which', function () {
+    describe('has a function arrayRemoveItem() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayRemoveItem({}, function () {}); };
             var func3 = function () { return lxHelpers.arrayRemoveItem(1, function () {}); };
@@ -161,9 +219,17 @@ describe('LxHelpers', function () {
             expect(arr.length).toBe(3);
             expect(arr2.length).toBe(3);
         });
+
+        it('should do nothing if the array is empty', function () {
+            var arr = [];
+
+            lxHelpers.arrayRemoveItem(arr, 44);
+
+            expect(arr.length).toBe(0);
+        });
     });
 
-    describe('has a function arrayMap which', function () {
+    describe('has a function arrayMap() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayMap({}, function () {}); };
             var func3 = function () { return lxHelpers.arrayMap(1, function () {}); };
@@ -200,7 +266,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function arrayGetDistinctValues which', function () {
+    describe('has a function arrayGetDistinctValues() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayGetDistinctValues({}); };
             var func3 = function () { return lxHelpers.arrayGetDistinctValues(1); };
@@ -239,7 +305,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function arrayFilter which', function () {
+    describe('has a function arrayFilter() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayFilter({}, function () {}); };
             var func3 = function () { return lxHelpers.arrayFilter(1, function () {}); };
@@ -279,7 +345,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function arrayPushAll which', function () {
+    describe('has a function arrayPushAll() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayPushAll({}); };
             var func3 = function () { return lxHelpers.arrayPushAll(1); };
@@ -310,6 +376,20 @@ describe('LxHelpers', function () {
             expect(res.length).toBe(6);
         });
 
+        it('should return an array with the pushed values when the array is not defined', function () {
+            var arr = null;
+            var res = lxHelpers.arrayPushAll(arr, [3, 4, 5]);
+
+            expect(Array.isArray(res)).toBeTruthy();
+            expect(res.length).toBe(3);
+
+            arr = undefined;
+            res = lxHelpers.arrayPushAll(arr, [3, 4, 5]);
+
+            expect(Array.isArray(res)).toBeTruthy();
+            expect(res.length).toBe(3);
+        });
+
         it('should clear the array and return an array with the pushed values when param clearArray is true', function () {
             var arr = [1, 2, 3];
             var res = lxHelpers.arrayPushAll(arr, [3, 4, 5], true);
@@ -319,7 +399,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function objectForEach which', function () {
+    describe('has a function objectForEach() which', function () {
         it('should throw an exception when the parameter obj is not of type object', function () {
             var func2 = function () { return lxHelpers.objectForEach([], function () {}); };
             var func3 = function () { return lxHelpers.objectForEach(1, function () {}); };
@@ -329,16 +409,16 @@ describe('LxHelpers', function () {
             var func7 = function () { return lxHelpers.objectForEach(function () {}, function () {}); };
             var func8 = function () { return lxHelpers.objectForEach({}, function () {}); };
 
-            expect(func2).not.toThrow();
+            expect(func2).toThrow();
             expect(func3).toThrow();
             expect(func4).toThrow();
             expect(func5).toThrow();
-            expect(func6).not.toThrow();
+            expect(func6).toThrow();
             expect(func7).toThrow();
             expect(func8).not.toThrow();
         });
 
-        it('should perform the action for each item of th object', function () {
+        it('should perform the action for each item of the object', function () {
             var obj = {
                 name: 'test',
                 role: 'user'
@@ -352,7 +432,33 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function createGuid which', function () {
+    describe('has a function forEach() which', function () {
+        it('should throw an exception when the parameter action is no function', function () {
+            var func2 = function () { return lxHelpers.forEach([1, 2], null); };
+
+            expect(func2).toThrow();
+        });
+
+        it('should perform the action for each item', function () {
+            var obj = {
+                    name: 'test',
+                    role: 'user'
+                },
+                arr = ['test', 'user'],
+                res = [];
+
+            lxHelpers.forEach(obj, function (key, value) { obj[key] = value + 'Action'; });
+            lxHelpers.forEach(arr, function (value) { res.push(value + 'Action'); });
+
+            expect(Object.keys(obj).length).toBe(2);
+            expect(obj.name).toBe('testAction');
+            expect(obj.role).toBe('userAction');
+            expect(res[0]).toBe('testAction');
+            expect(res[1]).toBe('userAction');
+        });
+    });
+
+    describe('has a function createGuid() which', function () {
         it('should return a new GUID', function () {
             var res = lxHelpers.createGuid();
 
@@ -361,7 +467,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function capitalizeFirstLetter which', function () {
+    describe('has a function capitalizeFirstLetter() which', function () {
         it('should throw an exception when the parameter obj is not of type string', function () {
             var func2 = function () { return lxHelpers.capitalizeFirstLetter(['3']); };
             var func3 = function () { return lxHelpers.capitalizeFirstLetter(1); };
@@ -402,7 +508,7 @@ describe('LxHelpers', function () {
         });
     });
 
-    describe('has a function clone which', function () {
+    describe('has a function clone() which', function () {
         it('should clone primitive types', function () {
             var res = lxHelpers.clone('wayne');
             var res1 = lxHelpers.clone(1);
