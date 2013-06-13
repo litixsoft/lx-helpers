@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.2.0 - 2013-06-13
+ * lx-helpers - v0.2.1 - 2013-06-13
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -9,13 +9,19 @@
 (function (exports) {
     'use strict';
 
-    function getType (value) {
-        return Object.prototype.toString.call(value);
-    }
-
     function isEmptyArray (array) {
         return array === undefined || array === null || (exports.isArray(array) && exports.isEmpty(array));
     }
+
+    /**
+     * Gets the full type of the value.
+     *
+     * @param {*} value The value to test.
+     * @returns {string}
+     */
+    exports.getType = function (value) {
+        return Object.prototype.toString.call(value);
+    };
 
     /**
      * Returns if the value is an array.
@@ -24,7 +30,7 @@
      * @returns {boolean}
      */
     exports.isArray = function (value) {
-        return getType(value) === '[object Array]';
+        return exports.getType(value) === '[object Array]';
     };
 
     /**
@@ -34,7 +40,7 @@
      * @returns {boolean}
      */
     exports.isObject = function (value) {
-        return getType(value) === '[object Object]';
+        return exports.getType(value) === '[object Object]';
     };
 
     /**
@@ -44,7 +50,7 @@
      * @returns {boolean}
      */
     exports.isFunction = function (value) {
-        return getType(value) === '[object Function]';
+        return exports.getType(value) === '[object Function]';
     };
 
     /**
@@ -54,7 +60,7 @@
      * @returns {boolean}
      */
     exports.isDate = function (value) {
-        return getType(value) === '[object Date]';
+        return exports.getType(value) === '[object Date]';
     };
 
     /**
@@ -89,7 +95,7 @@
         }
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         for (var i = 0, j = array.length; i < j; i++) {
@@ -110,7 +116,7 @@
      */
     exports.arrayForEach = function (array, action, context) {
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         return exports.forEach(array, action, context);
@@ -129,7 +135,7 @@
         }
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         if (typeof Array.prototype.indexOf === 'function') {
@@ -158,7 +164,7 @@
         }
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         var index = exports.arrayIndexOf(array, itemToRemove, context);
@@ -184,7 +190,7 @@
         }
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         for (var i = 0, j = array.length; i < j; i++) {
@@ -209,7 +215,7 @@
         }
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         for (var i = 0, j = array.length; i < j; i++) {
@@ -237,7 +243,7 @@
         }
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         for (var i = 0, j = array.length; i < j; i++) {
@@ -261,11 +267,11 @@
         array = array || [];
 
         if (!exports.isArray(array)) {
-            throw new Error('Param "array" is of type ' + getType(array) + '! Type [object Array] expected');
+            throw new Error('Param "array" is of type ' + exports.getType(array) + '! Type [object Array] expected');
         }
 
         if (!exports.isArray(valuesToPush)) {
-            throw new Error('Param "valuesToPush" is of type ' + getType(valuesToPush) + '! Type [object Array] expected');
+            throw new Error('Param "valuesToPush" is of type ' + exports.getType(valuesToPush) + '! Type [object Array] expected');
         }
 
         if (clearArray) {
@@ -286,7 +292,7 @@
      */
     exports.objectForEach = function (obj, action, context) {
         if (!exports.isObject(obj)) {
-            throw new Error('Param "obj" is of type ' + getType(obj) + '! Type [object Object] expected');
+            throw new Error('Param "obj" is of type ' + exports.getType(obj) + '! Type [object Object] expected');
         }
 
         return exports.forEach(obj, action, context);

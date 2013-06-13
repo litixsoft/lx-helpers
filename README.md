@@ -24,6 +24,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### v0.2.1
+* add function getType() to get the full type of the value (e.g. getType(null) === '[object Null]')
+
 ### v0.2.0
 * add zip file in dist folder containing the debug and min version of lx-helpers
 * add function isEmpty() to check if the given value has no items/keys

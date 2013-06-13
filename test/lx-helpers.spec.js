@@ -10,6 +10,20 @@ var data = [
 ];
 
 describe('LxHelpers', function () {
+    it('has a function getType() which should return the full type of the value', function () {
+        expect(lxHelpers.getType([])).toBe('[object Array]');
+        expect(lxHelpers.getType({})).toBe('[object Object]');
+        expect(lxHelpers.getType()).toBe('[object Undefined]');
+        expect(lxHelpers.getType(function () {})).toBe('[object Function]');
+        expect(lxHelpers.getType(null)).toBe('[object Null]');
+        expect(lxHelpers.getType(undefined)).toBe('[object Undefined]');
+        expect(lxHelpers.getType(true)).toBe('[object Boolean]');
+        expect(lxHelpers.getType(13)).toBe('[object Number]');
+        expect(lxHelpers.getType(13.99)).toBe('[object Number]');
+        expect(lxHelpers.getType('asddad')).toBe('[object String]');
+        expect(lxHelpers.getType(new Date())).toBe('[object Date]');
+    });
+
     it('has a function isArray() which should return if the given value is an array', function () {
         expect(lxHelpers.isArray([])).toBeTruthy();
         expect(lxHelpers.isArray({})).toBeFalsy();
