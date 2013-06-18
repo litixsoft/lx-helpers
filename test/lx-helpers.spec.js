@@ -92,7 +92,7 @@ describe('LxHelpers', function () {
         };
         fn.lastname = 'Noob';
 
-        expect(lxHelpers.isEmpty(fn)).toBeFalsy();
+        expect(lxHelpers.isEmpty(fn)).toBeTruthy();
     });
 
     describe('has a function arrayFirst() which', function () {

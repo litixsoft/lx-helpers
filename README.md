@@ -24,6 +24,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### v0.2.2
+* function isEmpty() now only checks length for arrays and objects. Functions now return always true.
+
 ### v0.2.1
 * add function getType() to get the full type of the value (e.g. getType(null) === '[object Null]')
 
