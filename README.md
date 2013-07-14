@@ -36,7 +36,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ### v0.1.0 project initial
 
-## Author: [Litixsoft GmbH](http://www.litixsoft.de)
+## Author
+[Litixsoft GmbH](http://www.litixsoft.de)
 
 ## License
 Copyright (C) 2013 Litixsoft GmbH <info@litixsoft.de>
