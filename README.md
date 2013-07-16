@@ -18,6 +18,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### v0.2.3
+* add function for getting a TypeError with a message.
+
 ### v0.2.2
 * function isEmpty() now only checks length for arrays and objects. Functions now return always true.
 

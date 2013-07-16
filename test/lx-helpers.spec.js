@@ -626,4 +626,20 @@ describe('LxHelpers', function () {
             expect(res.locations[2].hasDoor).toBe(false);
         });
     });
+
+    describe('has a function getTypeError() which', function () {
+        it('should return an TypeError with the correct message', function () {
+            var sut = lxHelpers.getTypeError('id', '12345646', {});
+            var func = function(names) {
+                if (!lxHelpers.isArray(names)) {
+                    throw lxHelpers.getTypeError('names', names, []);
+                }
+            };
+
+            expect(typeof sut).toBe('object');
+            expect(sut instanceof TypeError).toBe(true);
+            expect(typeof sut.message).toBeDefined();
+            expect(func).toThrow();
+        });
+    });
 });

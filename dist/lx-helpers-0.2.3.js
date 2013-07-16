@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.2.2 - 2013-07-12
+ * lx-helpers - v0.2.3 - 2013-07-16
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -404,6 +404,18 @@
         }
 
         return mixin(result, src, exports.clone);
+    };
+
+    /**
+     * Gets a TypeError with a message.
+     *
+     * @param {!String} name The name of the value.
+     * @param {!*} value The value.
+     * @param {!*} expectedType The type which is expected
+     * @returns {TypeError}
+     */
+    exports.getTypeError = function(name, value, expectedType) {
+        return new TypeError('Param "' + name + '" is of type ' + exports.getType(value) + '! Type ' + exports.getType(expectedType) + ' expected');
     };
 
 })(typeof(window) === 'undefined' ? module.exports : (window.lxHelpers = window.lxHelpers || {}));
