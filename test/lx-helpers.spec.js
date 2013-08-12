@@ -210,6 +210,52 @@ describe('LxHelpers', function () {
         });
     });
 
+    describe('has a function arrayHasItem() which', function () {
+        it('should throw an exception when the parameter array is not of type Array', function () {
+            var func2 = function () { return lxHelpers.arrayHasItem({}, function () {}); };
+            var func3 = function () { return lxHelpers.arrayHasItem(1, function () {}); };
+            var func4 = function () { return lxHelpers.arrayHasItem('1', function () {}); };
+            var func5 = function () { return lxHelpers.arrayHasItem([1, 2], function () {}); };
+
+            expect(func2).toThrow();
+            expect(func3).toThrow();
+            expect(func4).toThrow();
+            expect(func5).not.toThrow();
+        });
+
+        it('should return false when the parameter array is null, undefined or empty array', function () {
+            var item = lxHelpers.arrayHasItem(null, function () {});
+            var item1 = lxHelpers.arrayHasItem(undefined, function () {});
+            var item2 = lxHelpers.arrayHasItem([], function () {});
+
+            expect(item).toBeFalsy();
+            expect(item1).toBeFalsy();
+            expect(item2).toBeFalsy();
+        });
+
+        it('should return true if the item in the array', function () {
+            var arr = [1, 2, 3];
+            var arr2 = ['1', '2', '3'];
+
+            var res1 = lxHelpers.arrayHasItem(arr, 2);
+            var res2 = lxHelpers.arrayHasItem(arr2, '3');
+
+            expect(res1).toBeTruthy();
+            expect(res2).toBeTruthy();
+        });
+
+        it('should return false if the given item is not in the array', function () {
+            var arr = [1, 2, 3];
+            var arr2 = ['1', '2', '3'];
+
+            var res1 = lxHelpers.arrayHasItem(arr, 55);
+            var res2 = lxHelpers.arrayHasItem(arr2, 'wayne');
+
+            expect(res1).toBeFalsy();
+            expect(res2).toBeFalsy();
+        });
+    });
+
     describe('has a function arrayRemoveItem() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
             var func2 = function () { return lxHelpers.arrayRemoveItem({}, function () {}); };

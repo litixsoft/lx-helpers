@@ -18,6 +18,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+### v0.2.4
+* add function arrayHasItem(array, item) to check if an array contains the given item.
+
 ### v0.2.3
 * add function for getting a TypeError with a message.
 

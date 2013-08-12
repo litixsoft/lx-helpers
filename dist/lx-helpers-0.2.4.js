@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.2.3 - 2013-07-16
+ * lx-helpers - v0.2.4 - 2013-08-12
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -123,7 +123,7 @@
     };
 
     /**
-     * Return the index of the item in the array.
+     * Returns the index of the item in the array.
      *
      * @param {Array} array The array.
      * @param {*} item The item to search for.
@@ -149,6 +149,17 @@
         }
 
         return -1;
+    };
+
+    /**
+     * Returns if the item is in the array.
+     *
+     * @param {Array} array The array.
+     * @param {*} item The item to search for.
+     * @return {Boolean}
+     */
+    exports.arrayHasItem = function (array, item) {
+        return exports.arrayIndexOf(array, item) > -1 ? true : false;
     };
 
     /**
@@ -414,7 +425,7 @@
      * @param {!*} expectedType The type which is expected
      * @returns {TypeError}
      */
-    exports.getTypeError = function(name, value, expectedType) {
+    exports.getTypeError = function (name, value, expectedType) {
         return new TypeError('Param "' + name + '" is of type ' + exports.getType(value) + '! Type ' + exports.getType(expectedType) + ' expected');
     };
 
