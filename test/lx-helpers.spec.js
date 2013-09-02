@@ -529,6 +529,42 @@ describe('LxHelpers', function () {
             expect(res[0]).toBe('testAction');
             expect(res[1]).toBe('userAction');
         });
+
+        it('should stop if the action returns false', function () {
+            var obj = {
+                    name: 'test',
+                    role: 'user',
+                    s: '1',
+                    t: '2',
+                    v: '3'
+                },
+                arr = ['test', 'user', '1', '2', '3'],
+                res = [],
+                resObj = {};
+
+            lxHelpers.forEach(obj, function (key, value) {
+                if (value === '1') {
+                    return false;
+                }
+
+                resObj[key] = value + 'Action';
+            });
+
+            lxHelpers.forEach(arr, function (value) {
+                if (value === '1') {
+                    return false;
+                }
+
+                res.push(value + 'Action');
+            });
+
+            expect(Object.keys(resObj).length).toBe(2);
+            expect(resObj.name).toBe('testAction');
+            expect(resObj.role).toBe('userAction');
+            expect(res.length).toBe(2);
+            expect(res[0]).toBe('testAction');
+            expect(res[1]).toBe('userAction');
+        });
     });
 
     describe('has a function createGuid() which', function () {
@@ -676,7 +712,7 @@ describe('LxHelpers', function () {
     describe('has a function getTypeError() which', function () {
         it('should return an TypeError with the correct message', function () {
             var sut = lxHelpers.getTypeError('id', '12345646', {});
-            var func = function(names) {
+            var func = function (names) {
                 if (!lxHelpers.isArray(names)) {
                     throw lxHelpers.getTypeError('names', names, []);
                 }
