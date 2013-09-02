@@ -17,6 +17,8 @@ npm install lx-helpers
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
 
 ## Release History
+### v0.2.5
+* add break condition to forEach function
 
 ### v0.2.4
 * add function arrayHasItem(array, item) to check if an array contains the given item.
