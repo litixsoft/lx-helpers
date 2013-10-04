@@ -1,16 +1,12 @@
 # lx-helpers [![Build Status](https://travis-ci.org/litixsoft/lx-helpers.png?branch=master)](https://travis-ci.org/litixsoft/lx-helpers) [![david-dm](https://david-dm.org/litixsoft/lx-helpers.png)](https://david-dm.org/litixsoft/lx-helpers/) [![david-dm](https://david-dm.org/litixsoft/lx-helpers/dev-status.png)](https://david-dm.org/litixsoft/lx-helpers#info=devDependencies&view=table)
 
-[![NPM](https://nodei.co/npm/lx-helpers.png??downloads=true&stars=true)](https://nodei.co/npm/lx-helpers/)
-
 Litixsoft helper functions for Javascript (client and server).
 
 ## Getting Started
 
 ### Install:
 
-```javascript
-npm install lx-helpers
-```
+[![NPM](https://nodei.co/npm/lx-helpers.png??downloads=true&stars=true)](https://nodei.co/npm/lx-helpers/)
 
 ## Documentation
 [http://www.litixsoft.de/products-lxhelpers](http://www.litixsoft.de/products-lxhelpers) (german)
