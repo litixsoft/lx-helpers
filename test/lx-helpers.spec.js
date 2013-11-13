@@ -11,20 +11,23 @@ var data = [
 
 describe('LxHelpers', function () {
     it('has a function getType() which should return the full type of the value', function () {
-        expect(lxHelpers.getType([])).toBe('[object Array]');
-        expect(lxHelpers.getType({})).toBe('[object Object]');
-        expect(lxHelpers.getType()).toBe('[object Undefined]');
-        expect(lxHelpers.getType(function () {})).toBe('[object Function]');
-        expect(lxHelpers.getType(null)).toBe('[object Null]');
-        expect(lxHelpers.getType(undefined)).toBe('[object Undefined]');
-        expect(lxHelpers.getType(true)).toBe('[object Boolean]');
-        expect(lxHelpers.getType(13)).toBe('[object Number]');
-        expect(lxHelpers.getType(13.99)).toBe('[object Number]');
-        expect(lxHelpers.getType('asddad')).toBe('[object String]');
-        expect(lxHelpers.getType(new Date())).toBe('[object Date]');
+        expect(lxHelpers.getType([])).toBe('array');
+        expect(lxHelpers.getType({})).toBe('object');
+        expect(lxHelpers.getType()).toBe('undefined');
+        expect(lxHelpers.getType(function () {})).toBe('function');
+        expect(lxHelpers.getType(null)).toBe('null');
+        expect(lxHelpers.getType(undefined)).toBe('undefined');
+        expect(lxHelpers.getType(true)).toBe('boolean');
+        expect(lxHelpers.getType(13)).toBe('number');
+        expect(lxHelpers.getType(13.99)).toBe('number');
+        expect(lxHelpers.getType('asddad')).toBe('string');
+        expect(lxHelpers.getType(String('asddad'))).toBe('string');
+        expect(lxHelpers.getType(new Date())).toBe('date');
+        expect(lxHelpers.getType(Infinity)).toBe('infinity');
+        expect(lxHelpers.getType(NaN)).toBe('nan');
     });
 
-    it('has a function isArray() which should return if the given value is an array', function () {
+    it('has a function isArray() which should true return if the given value is an array', function () {
         expect(lxHelpers.isArray([])).toBeTruthy();
         expect(lxHelpers.isArray({})).toBeFalsy();
         expect(lxHelpers.isArray()).toBeFalsy();
@@ -34,9 +37,11 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isArray(true)).toBeFalsy();
         expect(lxHelpers.isArray(13)).toBeFalsy();
         expect(lxHelpers.isArray('asddad')).toBeFalsy();
+        expect(lxHelpers.isArray(NaN)).toBeFalsy();
+        expect(lxHelpers.isArray(Infinity)).toBeFalsy();
     });
 
-    it('has a function isObject() which should return if the given value is an object', function () {
+    it('has a function isObject() which should true return if the given value is an object', function () {
         expect(lxHelpers.isObject([])).toBeFalsy();
         expect(lxHelpers.isObject({})).toBeTruthy();
         expect(lxHelpers.isObject()).toBeFalsy();
@@ -46,9 +51,11 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isObject(true)).toBeFalsy();
         expect(lxHelpers.isObject(13)).toBeFalsy();
         expect(lxHelpers.isObject('asddad')).toBeFalsy();
+        expect(lxHelpers.isObject(NaN)).toBeFalsy();
+        expect(lxHelpers.isObject(Infinity)).toBeFalsy();
     });
 
-    it('has a function isFunction() which should return if the given value is a function', function () {
+    it('has a function isFunction() which should true return if the given value is a function', function () {
         expect(lxHelpers.isFunction([])).toBeFalsy();
         expect(lxHelpers.isFunction({})).toBeFalsy();
         expect(lxHelpers.isFunction()).toBeFalsy();
@@ -58,9 +65,11 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isFunction(true)).toBeFalsy();
         expect(lxHelpers.isFunction(13)).toBeFalsy();
         expect(lxHelpers.isFunction('asddad')).toBeFalsy();
+        expect(lxHelpers.isFunction(NaN)).toBeFalsy();
+        expect(lxHelpers.isFunction(Infinity)).toBeFalsy();
     });
 
-    it('has a function isDate() which should return if the given value is a Date', function () {
+    it('has a function isDate() which should return true if the given value is a Date', function () {
         expect(lxHelpers.isDate([])).toBeFalsy();
         expect(lxHelpers.isDate({})).toBeFalsy();
         expect(lxHelpers.isDate()).toBeFalsy();
@@ -71,6 +80,23 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isDate(13)).toBeFalsy();
         expect(lxHelpers.isDate('asddad')).toBeFalsy();
         expect(lxHelpers.isDate(new Date())).toBeTruthy();
+        expect(lxHelpers.isDate(NaN)).toBeFalsy();
+        expect(lxHelpers.isDate(Infinity)).toBeFalsy();
+    });
+
+    it('has a function isNumber() which should return true if the given value is a Number', function () {
+        expect(lxHelpers.isNumber([])).toBeFalsy();
+        expect(lxHelpers.isNumber({})).toBeFalsy();
+        expect(lxHelpers.isNumber()).toBeFalsy();
+        expect(lxHelpers.isNumber(function () {})).toBeFalsy();
+        expect(lxHelpers.isNumber(null)).toBeFalsy();
+        expect(lxHelpers.isNumber(undefined)).toBeFalsy();
+        expect(lxHelpers.isNumber(true)).toBeFalsy();
+        expect(lxHelpers.isNumber(13)).toBeTruthy();
+        expect(lxHelpers.isNumber('asddad')).toBeFalsy();
+        expect(lxHelpers.isNumber(new Date())).toBeFalsy();
+        expect(lxHelpers.isNumber(NaN)).toBeFalsy();
+        expect(lxHelpers.isNumber(Infinity)).toBeFalsy();
     });
 
     it('has a function isEmpty() which should return if the given value has no items or keys', function () {

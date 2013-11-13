@@ -15,6 +15,11 @@ Litixsoft helper functions for Javascript (client and server).
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
 
 ## Release History
+### v0.3.0
+* add function isNumber()
+* Breaking Change: getType() now returns the type in lower case without the part ‘[object]‘
+* getType() now detects Infinite and NaN
+
 ### v0.2.5
 * add break condition to forEach function
 
