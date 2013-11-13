@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.2.5 - 2013-09-02
+ * lx-helpers - v0.3.0 - 2013-11-13
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -14,13 +14,38 @@
     }
 
     /**
-     * Gets the full type of the value.
+     * Gets the type of the value in lower case.
      *
      * @param {*} value The value to test.
      * @returns {string}
      */
     exports.getType = function (value) {
-        return Object.prototype.toString.call(value);
+        // inspired by http://techblog.badoo.com/blog/2013/11/01/type-checking-in-javascript/
+
+        // handle null in old IE
+        if (value === null) {
+            return 'null';
+        }
+
+        // handle DOM elements
+        if (value && (value.nodeType === 1 || value.nodeType === 9)) {
+            return 'element';
+        }
+
+        var s = Object.prototype.toString.call(value);
+        var type = s.match(/\[object (.*?)\]/)[1].toLowerCase();
+
+        // handle NaN and Infinity
+        if (type === 'number') {
+            if (isNaN(value)) {
+                return 'nan';
+            }
+            if (!isFinite(value)) {
+                return 'infinity';
+            }
+        }
+
+        return type;
     };
 
     /**
@@ -30,7 +55,7 @@
      * @returns {boolean}
      */
     exports.isArray = function (value) {
-        return exports.getType(value) === '[object Array]';
+        return exports.getType(value) === 'array';
     };
 
     /**
@@ -40,7 +65,7 @@
      * @returns {boolean}
      */
     exports.isObject = function (value) {
-        return exports.getType(value) === '[object Object]';
+        return exports.getType(value) === 'object';
     };
 
     /**
@@ -50,7 +75,7 @@
      * @returns {boolean}
      */
     exports.isFunction = function (value) {
-        return exports.getType(value) === '[object Function]';
+        return exports.getType(value) === 'function';
     };
 
     /**
@@ -60,7 +85,17 @@
      * @returns {boolean}
      */
     exports.isDate = function (value) {
-        return exports.getType(value) === '[object Date]';
+        return exports.getType(value) === 'date';
+    };
+
+    /**
+     * Returns if the value is a Number.
+     *
+     * @param {*} value The value to test.
+     * @returns {boolean}
+     */
+    exports.isNumber = function (value) {
+        return exports.getType(value) === 'number';
     };
 
     /**
@@ -159,7 +194,7 @@
      * @return {Boolean}
      */
     exports.arrayHasItem = function (array, item) {
-        return exports.arrayIndexOf(array, item) > -1 ? true : false;
+        return exports.arrayIndexOf(array, item) > -1;
     };
 
     /**
@@ -431,4 +466,4 @@
         return new TypeError('Param "' + name + '" is of type ' + exports.getType(value) + '! Type ' + exports.getType(expectedType) + ' expected');
     };
 
-})(typeof(window) === 'undefined' ? module.exports : (window.lxHelpers = window.lxHelpers || {}));
+})(typeof(module) !== 'undefined' && module.exports !== undefined ? module.exports : (window.json = window.json || {}));
