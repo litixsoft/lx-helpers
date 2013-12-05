@@ -9,7 +9,7 @@ Litixsoft helper functions for Javascript (client and server).
 [![NPM](https://nodei.co/npm/lx-helpers.png??downloads=true&stars=true)](https://nodei.co/npm/lx-helpers/)
 
 ## Documentation
-[http://www.litixsoft.de/products-lxhelpers.html](http://www.litixsoft.de/products-lxhelpers) (german)
+[http://www.litixsoft.de/products-lxhelpers.html](http://www.litixsoft.de/products-lxhelpers.html) (german)
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](http://gruntjs.com/).
