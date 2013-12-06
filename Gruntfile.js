@@ -49,23 +49,7 @@ module.exports = function (grunt) {
         },
         jshint: {
             options: {
-                bitwise: true,
-                curly: true,
-                eqeqeq: true,
-                forin: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                noempty: true,
-                nonew: true,
-                regexp: true,
-                undef: true,
-                unused: true,
-                indent: 4,
-                quotmark: 'single',
-                browser: true,
-                node: true
+                jshintrc: true
             },
             test: ['Gruntfile.js', 'lib/**/.js', 'test/**/*.js'],
             jslint: {
@@ -105,6 +89,7 @@ module.exports = function (grunt) {
             projectRoot: 'test',
             requirejs: false,
             forceExit: true,
+            verbose: false,
             jUnit: {
                 report: true,
                 savePath: './build/reports/jasmine/',
