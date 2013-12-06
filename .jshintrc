@@ -14,6 +14,5 @@
     "unused": true,
     "indent": 4,
     "quotmark": "single",
-    "node": true,
-    "browser": true
+    "node": true
 }
