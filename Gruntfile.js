@@ -1,5 +1,7 @@
 'use strict';
 
+var fs = require('fs');
+
 module.exports = function (grunt) {
     // load npm tasks
     require('load-grunt-tasks')(grunt);
@@ -104,7 +106,13 @@ module.exports = function (grunt) {
     });
 
     // Register tasks.
-    grunt.registerTask('test', ['clean:jasmine', 'jshint:test', 'jasmine_node']);
+    grunt.registerTask('git:commitHook', 'Install git commit hook', function () {
+        grunt.file.copy('validate-commit-msg.js', '.git/hooks/commit-msg');
+        fs.chmodSync('.git/hooks/commit-msg', '0755');
+        grunt.log.ok('Registered git hook: commit-msg');
+    });
+
+    grunt.registerTask('test', ['git:commitHook', 'clean:jasmine', 'jshint:test', 'jasmine_node']);
     grunt.registerTask('build', ['test', 'concat', 'uglify', 'compress']);
     grunt.registerTask('cover', ['clean:coverage', 'jshint:test', 'bgShell:coverage', 'open']);
     grunt.registerTask('ci', ['clean', 'jshint:jslint', 'jshint:checkstyle', 'bgShell:coverage', 'bgShell:cobertura', 'jasmine_node']);
