@@ -1,3 +1,11 @@
+<a name="v0.3.2"></a>
+### v0.3.2 (2013-12-09)
+
+
+#### Features
+
+* add function roundPrecise() to round  a value to n decimal places, with 0.005 be ([e9660ee6](https://github.com/litixsoft/lx-helpers/commit/e9660ee6502a61ca142646cfe6e9e3a364fb9107))
+
 <a name="v0.3.1"></a>
 ### v0.3.1 (2013-12-09)
 

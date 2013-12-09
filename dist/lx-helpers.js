@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.3.1 - 2013-12-09
+ * lx-helpers - v0.3.2 - 2013-12-09
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -464,6 +464,31 @@
      */
     exports.getTypeError = function (name, value, expectedType) {
         return new TypeError('Param "' + name + '" is of type ' + exports.getType(value) + '! Type ' + exports.getType(expectedType) + ' expected');
+    };
+
+    /**
+     * Returns the value of a rounded to two decimal places, with 0.005 being rounded up.
+     *
+     * @param {number} value The value.
+     * @param {number} decimals The decimal places
+     * @returns {number | NaN}
+     */
+    exports.roundPrecise = function (value, decimals) {
+        // if value is not a number or the decPlaces is not an integer.
+        if ((value === null || isNaN(value)) || !(typeof decimals === 'number' && decimals % 1 === 0)) {
+            return NaN;
+        }
+
+        var val = value * Math.pow(10, decimals);
+        var fraction = (Math.round((val - parseInt(val)) * 10) / 10);
+
+        // this line is for consistency with .NET Decimal.Round behavior => -342.055 => -342.06
+        if (fraction === -0.5) {
+            fraction = -0.6;
+        }
+
+        val = Math.round(parseInt(val) + fraction) / Math.pow(10, decimals);
+        return val;
     };
 
 })(typeof(module) !== 'undefined' && module.exports !== undefined ? module.exports : (window.json = window.json || {}));
