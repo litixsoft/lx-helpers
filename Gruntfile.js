@@ -19,7 +19,8 @@ module.exports = function (grunt) {
         // Before generating any new files, remove any previously-created files.
         clean: {
             jasmine: ['build/reports/jasmine'],
-            coverage: ['build/coverage']
+            coverage: ['build/coverage'],
+            dist: ['dist']
         },
         concat: {
             options: {
@@ -28,7 +29,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['lib/<%= pkg.name %>.js'],
-                dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
+                dest: 'dist/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -37,7 +38,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['<%= concat.dist.dest %>'],
-                dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
+                dest: 'dist/<%= pkg.name %>.min.js'
             }
         },
         compress: {
@@ -46,7 +47,7 @@ module.exports = function (grunt) {
                     mode: 'zip',
                     archive: 'dist/<%= pkg.name %>.zip'
                 },
-                src: ['dist/<%= pkg.name %>-<%= pkg.version %>.js', 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js']
+                src: ['dist/<%= pkg.name %>.js', 'dist/<%= pkg.name %>.min.js']
             }
         },
         jshint: {
@@ -102,6 +103,14 @@ module.exports = function (grunt) {
         changelog: {
             options: {
             }
+        },
+        bump: {
+            options: {
+                updateConfigs: ['pkg'],
+                commitFiles: ['-a'],
+                commitMessage: 'chore: release v%VERSION%',
+                push: false
+            }
         }
     });
 
@@ -113,9 +122,19 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', ['git:commitHook', 'clean:jasmine', 'jshint:test', 'jasmine_node']);
-    grunt.registerTask('build', ['test', 'concat', 'uglify', 'compress']);
+    grunt.registerTask('build', ['clean:dist', 'test', 'concat', 'uglify', 'compress']);
     grunt.registerTask('cover', ['clean:coverage', 'jshint:test', 'bgShell:coverage', 'open']);
     grunt.registerTask('ci', ['clean', 'jshint:jslint', 'jshint:checkstyle', 'bgShell:coverage', 'bgShell:cobertura', 'jasmine_node']);
+    grunt.registerTask('release', 'Bump version, update changelog and tag version', function (version) {
+//        var bumper = version || 'patch';
+
+        grunt.task.run([
+            'bump:' + version || 'patch' + ':bump-only',
+            'build',
+            'changelog'
+//            'bump-commit'
+        ]);
+    });
 
     // Default task.
     grunt.registerTask('default', 'build');

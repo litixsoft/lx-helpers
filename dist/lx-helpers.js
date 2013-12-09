@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.3.0 - 2013-11-13
+ * lx-helpers - v0.3.1 - 2013-12-09
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
