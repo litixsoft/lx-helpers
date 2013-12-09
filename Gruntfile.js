@@ -126,13 +126,11 @@ module.exports = function (grunt) {
     grunt.registerTask('cover', ['clean:coverage', 'jshint:test', 'bgShell:coverage', 'open']);
     grunt.registerTask('ci', ['clean', 'jshint:jslint', 'jshint:checkstyle', 'bgShell:coverage', 'bgShell:cobertura', 'jasmine_node']);
     grunt.registerTask('release', 'Bump version, update changelog and tag version', function (version) {
-//        var bumper = version || 'patch';
-
         grunt.task.run([
-            'bump:' + version || 'patch' + ':bump-only',
+            'bump:' + (version || 'patch') + ':bump-only',
             'build',
-            'changelog'
-//            'bump-commit'
+            'changelog',
+            'bump-commit'
         ]);
     });
 

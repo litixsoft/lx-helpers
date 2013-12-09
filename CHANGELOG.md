@@ -1,3 +1,14 @@
+<a name="v0.3.1"></a>
+### v0.3.1 (2013-12-09)
+
+
+#### Features
+
+* **Gruntfile:**
+  * add grunt-bump task ([ec9e40a6](https://github.com/litixsoft/lx-helpers/commit/ec9e40a668c992bb5f5502ea482889290d1694e8))
+  * add grunt-conventional-changelog to generate changelog ([cb73cc8d](https://github.com/litixsoft/lx-helpers/commit/cb73cc8d5c05eec39a0e8dada5b8a1ae27e34369))
+* **git:** add git commit hook to validate the commit message ([778a6dce](https://github.com/litixsoft/lx-helpers/commit/778a6dce68298d4dfb30108b2aa1f5ffe1a7f30c))
+
 ## v0.3.0
 #### Features
 * add function isNumber()
