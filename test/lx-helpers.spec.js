@@ -750,4 +750,45 @@ describe('LxHelpers', function () {
             expect(func).toThrow();
         });
     });
+
+    describe('has a function roundPrecise() which', function () {
+        it('should return NaN', function () {
+            expect(lxHelpers.roundPrecise(1, 1.1)).toBeNaN();
+            expect(lxHelpers.roundPrecise('a', 1)).toBeNaN();
+            expect(lxHelpers.roundPrecise('a', 1.1)).toBeNaN();
+            expect(lxHelpers.roundPrecise(1.4, 'a')).toBeNaN();
+            expect(lxHelpers.roundPrecise(1.4, '2')).toBeNaN();
+            expect(lxHelpers.roundPrecise()).toBeNaN();
+            expect(lxHelpers.roundPrecise(null, 2)).toBeNaN();
+            expect(lxHelpers.roundPrecise(1.5, null)).toBeNaN();
+            expect(lxHelpers.roundPrecise(null, null)).toBeNaN();
+            expect(lxHelpers.roundPrecise(undefined, null)).toBeNaN();
+        });
+
+        it('should round a number as string', function () {
+            expect(lxHelpers.roundPrecise('1.4', 2)).toBe(1.4);
+            expect(lxHelpers.roundPrecise('1.45', 2)).toBe(1.45);
+            expect(lxHelpers.roundPrecise('1.455', 2)).toBe(1.46);
+        });
+
+        it('should round a number', function () {
+            expect(lxHelpers.roundPrecise(1, 1)).toBe(1);
+            expect(lxHelpers.roundPrecise(-1, 1)).toBe(-1);
+            expect(lxHelpers.roundPrecise(1.5, 1)).toBe(1.5);
+            expect(lxHelpers.roundPrecise(-1.5, 1)).toBe(-1.5);
+            expect(lxHelpers.roundPrecise(1.55, 1)).toBe(1.6);
+            expect(lxHelpers.roundPrecise(-1.55, 1)).toBe(-1.6);
+            expect(lxHelpers.roundPrecise(1.555, 1)).toBe(1.6);
+            expect(lxHelpers.roundPrecise(-1.555, 1)).toBe(-1.6);
+
+            expect(lxHelpers.roundPrecise(1, 2)).toBe(1);
+            expect(lxHelpers.roundPrecise(-1, 2)).toBe(-1);
+            expect(lxHelpers.roundPrecise(1.5, 2)).toBe(1.5);
+            expect(lxHelpers.roundPrecise(-1.5, 2)).toBe(-1.5);
+            expect(lxHelpers.roundPrecise(1.55, 2)).toBe(1.55);
+            expect(lxHelpers.roundPrecise(-1.55, 2)).toBe(-1.55);
+            expect(lxHelpers.roundPrecise(1.555, 2)).toBe(1.56);
+            expect(lxHelpers.roundPrecise(-1.555, 2)).toBe(-1.56);
+        });
+    });
 });
