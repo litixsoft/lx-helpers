@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.3.2 - 2013-12-09
+ * lx-helpers - v0.3.3 - 2013-12-18
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2013 Litixsoft GmbH
@@ -491,4 +491,4 @@
         return val;
     };
 
-})(typeof(module) !== 'undefined' && module.exports !== undefined ? module.exports : (window.json = window.json || {}));
+})(typeof(module) !== 'undefined' && module.exports !== undefined ? module.exports : (window.lxHelpers = window.lxHelpers || {}));

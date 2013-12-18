@@ -1,3 +1,11 @@
+<a name="v0.3.3"></a>
+### v0.3.3 (2013-12-18)
+
+
+#### Bug Fixes
+
+* rename module export in client side to window.lxHelpers ([6189db48](https://github.com/litixsoft/lx-helpers/commit/6189db481ab15ff9fb5be87f1f65a7090a342b30))
+
 <a name="v0.3.2"></a>
 ### v0.3.2 (2013-12-09)
 
