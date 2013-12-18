@@ -58,7 +58,7 @@
     "devDependencies": {
         "grunt": "0.4.2",
         "grunt-bg-shell": "~2.3.1",
-        "grunt-bump": "0.0.11",
+        "grunt-bump": "0.0.13",
         "grunt-contrib-clean": "~0.5.0",
         "grunt-contrib-compress": "~0.5.3",
         "grunt-contrib-concat": "~0.3.0",
@@ -67,8 +67,8 @@
         "grunt-conventional-changelog": "1.0.0",
         "grunt-jasmine-node": "0.1.0",
         "grunt-open": "~0.2.2",
-        "istanbul": "~0.1.46",
-        "load-grunt-tasks": "~0.2.0"
+        "istanbul": "~0.2.0",
+        "load-grunt-tasks": "~0.2.1"
     },
     "dependencies": {
     }
