@@ -1,3 +1,14 @@
+<a name="v0.3.4"></a>
+### v0.3.4 (2013-12-19)
+
+
+#### Features
+
+* add function removeTagsAndComments() ([44fdae46](https://github.com/litixsoft/lx-helpers/commit/44fdae4663e30a15fa03df8ff2a346454560bd23))
+* add function isBoolean() ([998d6334](https://github.com/litixsoft/lx-helpers/commit/998d6334084dc482be8b433e8e0d89a782c2abf1))
+* add function isRegExp() ([4de5b90b](https://github.com/litixsoft/lx-helpers/commit/4de5b90b8b340b15684c2b3c98b95db14a46702c))
+* add function isString() ([f7af0beb](https://github.com/litixsoft/lx-helpers/commit/f7af0beb270a3590913dd0364c5b7f2cfa6376ff))
+
 <a name="v0.3.3"></a>
 ### v0.3.3 (2013-12-18)
 
