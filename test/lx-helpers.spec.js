@@ -117,6 +117,24 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isString(new RegExp())).toBeFalsy();
     });
 
+    it('has a function isRegExp() which should return true if the given value is a regular expression object', function () {
+        expect(lxHelpers.isRegExp([])).toBeFalsy();
+        expect(lxHelpers.isRegExp({})).toBeFalsy();
+        expect(lxHelpers.isRegExp()).toBeFalsy();
+        expect(lxHelpers.isRegExp(function () {})).toBeFalsy();
+        expect(lxHelpers.isRegExp(null)).toBeFalsy();
+        expect(lxHelpers.isRegExp(undefined)).toBeFalsy();
+        expect(lxHelpers.isRegExp(true)).toBeFalsy();
+        expect(lxHelpers.isRegExp(13)).toBeFalsy();
+        expect(lxHelpers.isRegExp('asddad')).toBeFalsy();
+        /*jshint -W053 */
+        expect(lxHelpers.isRegExp(new String('wayne'))).toBeFalsy();
+        expect(lxHelpers.isRegExp(new Date())).toBeFalsy();
+        expect(lxHelpers.isRegExp(NaN)).toBeFalsy();
+        expect(lxHelpers.isRegExp(Infinity)).toBeFalsy();
+        expect(lxHelpers.isRegExp(new RegExp())).toBeTruthy();
+    });
+
     it('has a function isEmpty() which should return if the given value has no items or keys', function () {
         expect(lxHelpers.isEmpty([])).toBeTruthy();
         expect(lxHelpers.isEmpty({})).toBeTruthy();
