@@ -8,6 +8,7 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
+        jshintFiles: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
         pkg: grunt.file.readJSON('package.json'),
         banner: '/*!\n' +
             ' * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -54,14 +55,14 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: true
             },
-            test: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
+            test: '<%= jshintFiles %>',
             jslint: {
                 options: {
                     reporter: 'jslint',
                     reporterOutput: 'build/reports/jshint.xml'
                 },
                 files: {
-                    src: ['Gruntfile.js', 'lib/**/.js', 'test/**/*.js']
+                    src: '<%= jshintFiles %>'
                 }
             },
             checkstyle: {
@@ -70,7 +71,7 @@ module.exports = function (grunt) {
                     reporterOutput: 'build/reports/jshint_checkstyle.xml'
                 },
                 files: {
-                    src: ['Gruntfile.js', 'lib/**/.js', 'test/**/*.js']
+                    src: '<%= jshintFiles %>'
                 }
             }
         },
