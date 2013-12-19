@@ -39,6 +39,13 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isArray('asddad')).toBeFalsy();
         expect(lxHelpers.isArray(NaN)).toBeFalsy();
         expect(lxHelpers.isArray(Infinity)).toBeFalsy();
+        expect(lxHelpers.isArray(new RegExp())).toBeFalsy();
+        /*jshint -W053 */
+        expect(lxHelpers.isArray(new String('ww'))).toBeFalsy();
+        /*jshint -W053 */
+        expect(lxHelpers.isArray(new Boolean(true))).toBeFalsy();
+        /*jshint -W053 */
+        expect(lxHelpers.isArray(new Number(10))).toBeFalsy();
     });
 
     it('has a function isObject() which should true return if the given value is an object', function () {
@@ -93,6 +100,8 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isNumber(undefined)).toBeFalsy();
         expect(lxHelpers.isNumber(true)).toBeFalsy();
         expect(lxHelpers.isNumber(13)).toBeTruthy();
+        /*jshint -W053 */
+        expect(lxHelpers.isNumber(new Number(13))).toBeTruthy();
         expect(lxHelpers.isNumber('asddad')).toBeFalsy();
         expect(lxHelpers.isNumber(new Date())).toBeFalsy();
         expect(lxHelpers.isNumber(NaN)).toBeFalsy();
