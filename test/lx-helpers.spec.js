@@ -135,6 +135,26 @@ describe('LxHelpers', function () {
         expect(lxHelpers.isRegExp(new RegExp())).toBeTruthy();
     });
 
+    it('has a function isBoolean() which should return true if the given value is a boolean', function () {
+        expect(lxHelpers.isBoolean([])).toBeFalsy();
+        expect(lxHelpers.isBoolean({})).toBeFalsy();
+        expect(lxHelpers.isBoolean()).toBeFalsy();
+        expect(lxHelpers.isBoolean(function () {})).toBeFalsy();
+        expect(lxHelpers.isBoolean(null)).toBeFalsy();
+        expect(lxHelpers.isBoolean(undefined)).toBeFalsy();
+        expect(lxHelpers.isBoolean(true)).toBeTruthy();
+        /*jshint -W053 */
+        expect(lxHelpers.isBoolean(new Boolean(false))).toBeTruthy();
+        expect(lxHelpers.isBoolean(13)).toBeFalsy();
+        expect(lxHelpers.isBoolean('asddad')).toBeFalsy();
+        /*jshint -W053 */
+        expect(lxHelpers.isBoolean(new String('wayne'))).toBeFalsy();
+        expect(lxHelpers.isBoolean(new Date())).toBeFalsy();
+        expect(lxHelpers.isBoolean(NaN)).toBeFalsy();
+        expect(lxHelpers.isBoolean(Infinity)).toBeFalsy();
+        expect(lxHelpers.isBoolean(new RegExp())).toBeFalsy();
+    });
+
     it('has a function isEmpty() which should return if the given value has no items or keys', function () {
         expect(lxHelpers.isEmpty([])).toBeTruthy();
         expect(lxHelpers.isEmpty({})).toBeTruthy();
