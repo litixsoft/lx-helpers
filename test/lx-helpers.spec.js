@@ -856,4 +856,40 @@ describe('LxHelpers', function () {
             expect(lxHelpers.roundPrecise(-1.555, 2)).toBe(-1.56);
         });
     });
+
+    describe('has a function removeTagsAndComments() which', function () {
+        it('should throw an exception when the parameters are not of type string', function () {
+            expect(function () { return lxHelpers.removeTagsAndComments(); }).toThrow();
+            expect(function () { return lxHelpers.removeTagsAndComments(10); }).toThrow();
+            expect(function () { return lxHelpers.removeTagsAndComments('', 10); }).toThrow();
+        });
+
+        it('should handle empty values', function () {
+            expect(lxHelpers.removeTagsAndComments('')).toBe('');
+            expect(lxHelpers.removeTagsAndComments('', null)).toBe('');
+            expect(lxHelpers.removeTagsAndComments('', undefined)).toBe('');
+            expect(lxHelpers.removeTagsAndComments('', 0)).toBe('');
+            /*jshint -W053 */
+            expect(lxHelpers.removeTagsAndComments(new String())).toBe('');
+        });
+
+        it('should remove html tags from a string', function () {
+            expect(lxHelpers.removeTagsAndComments('<p>name</p>')).toBe('name');
+            expect(lxHelpers.removeTagsAndComments('<!-- test --><p>name</p>')).toBe('name');
+            expect(lxHelpers.removeTagsAndComments('<p>name</p><script>var i = 0;</script>')).toBe('namevar i = 0;');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p></div>')).toBe('name');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p></div>aaa<br><br /><strong>gg</strong>')).toBe('nameaaagg');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p><img src="xxx.png" onmouseover="makeBIG()">')).toBe('name');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p><a href="http://kwww.litixsoft.de">litixsoft</a>')).toBe('namelitixsoft');
+        });
+
+        it('should remove html tags from a string and the ones that are allowed', function () {
+            expect(lxHelpers.removeTagsAndComments('<p>name</p>', '<p>')).toBe('<p>name</p>');
+            expect(lxHelpers.removeTagsAndComments('<p>name</p><script>var i = 0;</script>', '<script>')).toBe('name<script>var i = 0;</script>');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p></div>', '<p>')).toBe('<p>name</p>');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p></div>aaa<br><br /><strong>gg</strong>', '<div>')).toBe('<div>name</div>aaagg');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p><img src="xxx.png" onmouseover="makeBIG()">', '<p><img>')).toBe('<p>name</p><img src="xxx.png" onmouseover="makeBIG()">');
+            expect(lxHelpers.removeTagsAndComments('<div><p>name</p><a href="http://kwww.litixsoft.de">litixsoft</a>', '<a>')).toBe('name<a href="http://kwww.litixsoft.de">litixsoft</a>');
+        });
+    });
 });
