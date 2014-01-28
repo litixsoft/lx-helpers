@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.4.0 - 2014-01-28
+ * lx-helpers - v0.4.1 - 2014-01-28
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2014 
@@ -394,7 +394,7 @@
 
         if (exports.isArray(obj)) {
             for (i = 0, length = obj.length; i < length; i++) {
-                if (action.call(context, obj[i]) === false) {
+                if (action.call(context, obj[i], i) === false) {
                     break;
                 }
             }
