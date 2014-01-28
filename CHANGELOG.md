@@ -1,3 +1,16 @@
+<a name="v0.4.0"></a>
+## v0.4.0 (2014-01-28)
+
+
+#### Features
+
+* revert the params of the callback function in forEach ([fcf4c26d](https://github.com/litixsoft/lx-helpers/commit/fcf4c26d1e2b830b9b8f37c8024c34ff3ade3659))
+
+#### Breaking Changes
+
+* you have to change all calls to objectForEach and forEach which iterates over objects.
+ ([fcf4c26d](https://github.com/litixsoft/lx-helpers/commit/fcf4c26d1e2b830b9b8f37c8024c34ff3ade3659))
+
 <a name="v0.3.4"></a>
 ### v0.3.4 (2013-12-19)
 

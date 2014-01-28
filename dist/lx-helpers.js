@@ -1,8 +1,8 @@
 /*!
- * lx-helpers - v0.3.4 - 2013-12-19
+ * lx-helpers - v0.4.0 - 2014-01-28
  * https://github.com/litixsoft/lx-helpers
  *
- * Copyright (c) 2013 
+ * Copyright (c) 2014 
  * Licensed MIT
  */
 
@@ -403,7 +403,7 @@
             length = keys.length;
 
             for (i = 0; i < length; i++) {
-                if (action.call(context, keys[i], obj[keys[i]]) === false) {
+                if (action.call(context, obj[keys[i]], keys[i]) === false) {
                     break;
                 }
             }
@@ -450,7 +450,7 @@
 
         function mixin (dest, source, cloneFunc) {
             if (exports.isObject(source)) {
-                exports.objectForEach(source, function (key, value) {
+                exports.objectForEach(source, function (value, key) {
                     dest[key] = cloneFunc ? cloneFunc(value) : value;
                 });
             }
