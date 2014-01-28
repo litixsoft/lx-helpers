@@ -680,6 +680,16 @@ describe('LxHelpers', function () {
             expect(res[0]).toBe('testAction');
             expect(res[1]).toBe('userAction');
         });
+
+        it('should get the index of the current array element', function () {
+            var data = ['a', 'b', 'c'];
+
+            lxHelpers.forEach(data, function(item, index) {
+                data[index] = item + index;
+            });
+
+            expect(data).toEqual(['a0', 'b1', 'c2']);
+        });
     });
 
     describe('has a function createGuid() which', function () {
