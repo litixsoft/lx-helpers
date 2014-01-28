@@ -1,3 +1,11 @@
+<a name="v0.4.1"></a>
+### v0.4.1 (2014-01-28)
+
+
+#### Features
+
+* add param index to callback function in forEach when iterating over arrays ([9a264e71](https://github.com/litixsoft/lx-helpers/commit/9a264e7186550b8291088c7908ba420dc563636a))
+
 <a name="v0.4.0"></a>
 ## v0.4.0 (2014-01-28)
 
