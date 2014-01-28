@@ -1,3 +1,21 @@
+<a name="v0.4.0"></a>
+## v0.4.0 (2014-01-28)
+
+
+#### Features
+
+* revert the params of the callback function in forEach ([fcf4c26d](https://github.com/litixsoft/lx-helpers/commit/fcf4c26d1e2b830b9b8f37c8024c34ff3ade3659))
+* add function removeTagsAndComments() ([287330f3](https://github.com/litixsoft/lx-helpers/commit/287330f3f871040c80b3e87b4fc89321d2de123f))
+* add function isBoolean() ([998d6334](https://github.com/litixsoft/lx-helpers/commit/998d6334084dc482be8b433e8e0d89a782c2abf1))
+* add function isRegExp() ([4de5b90b](https://github.com/litixsoft/lx-helpers/commit/4de5b90b8b340b15684c2b3c98b95db14a46702c))
+* add function isString() ([f7af0beb](https://github.com/litixsoft/lx-helpers/commit/f7af0beb270a3590913dd0364c5b7f2cfa6376ff))
+
+
+#### Breaking Changes
+
+* you have to change all calls to objectForEach and forEach which iterates over objects.
+ ([fcf4c26d](https://github.com/litixsoft/lx-helpers/commit/fcf4c26d1e2b830b9b8f37c8024c34ff3ade3659))
+
 <a name="v0.3.4"></a>
 ### v0.3.4 (2013-12-19)
 
