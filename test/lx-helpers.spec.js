@@ -588,7 +588,7 @@ describe('LxHelpers', function () {
                 role: 'user'
             };
 
-            lxHelpers.objectForEach(obj, function (key, value) { obj[key] = value + 'Action'; });
+            lxHelpers.objectForEach(obj, function (value, key) { obj[key] = value + 'Action'; });
 
             expect(Object.keys(obj).length).toBe(2);
             expect(obj.name).toBe('testAction');
@@ -611,7 +611,7 @@ describe('LxHelpers', function () {
                 arr = ['test', 'user'],
                 res = [];
 
-            lxHelpers.forEach(obj, function (key, value) { obj[key] = value + 'Action'; });
+            lxHelpers.forEach(obj, function (value, key) { obj[key] = value + 'Action'; });
             lxHelpers.forEach(arr, function (value) { res.push(value + 'Action'); });
 
             expect(Object.keys(obj).length).toBe(2);
@@ -619,6 +619,30 @@ describe('LxHelpers', function () {
             expect(obj.role).toBe('userAction');
             expect(res[0]).toBe('testAction');
             expect(res[1]).toBe('userAction');
+        });
+
+        it('should handle arrays and objects', function () {
+            var data = {
+                obj: {
+                    name: 'test',
+                    role: 'user'
+                },
+                arr: ['Atest', 'Auser']
+            };
+            var res = [];
+
+            lxHelpers.forEach(data, function(value) {
+                if (lxHelpers.isArray(value) || lxHelpers.isObject(value)) {
+                    lxHelpers.forEach(value, function(item) {
+                        res.push(item + 'Action');
+                    });
+                }
+            });
+
+            expect(res[0]).toBe('testAction');
+            expect(res[1]).toBe('userAction');
+            expect(res[2]).toBe('AtestAction');
+            expect(res[3]).toBe('AuserAction');
         });
 
         it('should stop if the action returns false', function () {
@@ -633,7 +657,7 @@ describe('LxHelpers', function () {
                 res = [],
                 resObj = {};
 
-            lxHelpers.forEach(obj, function (key, value) {
+            lxHelpers.forEach(obj, function (value, key) {
                 if (value === '1') {
                     return false;
                 }
