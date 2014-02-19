@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.4.1 - 2014-01-28
+ * lx-helpers - v0.5.0 - 2014-02-19
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2014 
@@ -176,7 +176,7 @@
      * Perform action for each array item.
      *
      * @param {Array} array The array.
-     * @param {Function} action The action to perform with each array item.
+     * @param {function(item, index)} action The action to perform with each array item.
      * @param {Object=} context The context of this.
      */
     exports.arrayForEach = function (array, action, context) {
@@ -371,14 +371,26 @@
             throw exports.getTypeError('obj', obj, {});
         }
 
-        return exports.forEach(obj, action, context);
+        if (!exports.isFunction(action)) {
+            throw exports.getTypeError('action', action, function () {});
+        }
+
+        var i;
+        var keys = Object.keys(obj);
+        var length = keys.length;
+
+        for (i = 0; i < length; i++) {
+            if (action.call(context, keys[i], obj[keys[i]]) === false) {
+                break;
+            }
+        }
     };
 
     /**
      * Performs action for each item.
      *
      * @param {Array|Object|Function} obj The object with items.
-     * @param {Function} action The action to perform with each item.
+     * @param {function(value, key)} action The action to perform with each item.
      * @param {Object=} context The context of this.
      */
     exports.forEach = function (obj, action, context) {
@@ -450,7 +462,7 @@
 
         function mixin (dest, source, cloneFunc) {
             if (exports.isObject(source)) {
-                exports.objectForEach(source, function (value, key) {
+                exports.forEach(source, function (value, key) {
                     dest[key] = cloneFunc ? cloneFunc(value) : value;
                 });
             }
