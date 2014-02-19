@@ -588,7 +588,7 @@ describe('LxHelpers', function () {
                 role: 'user'
             };
 
-            lxHelpers.objectForEach(obj, function (value, key) { obj[key] = value + 'Action'; });
+            lxHelpers.objectForEach(obj, function (key, value) { obj[key] = value + 'Action'; });
 
             expect(Object.keys(obj).length).toBe(2);
             expect(obj.name).toBe('testAction');
