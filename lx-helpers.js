@@ -1,5 +1,5 @@
 /*!
- * lx-helpers - v0.5.0 - 2014-02-19
+ * lx-helpers - v0.5.0 - 2014-03-19
  * https://github.com/litixsoft/lx-helpers
  *
  * Copyright (c) 2014 
@@ -192,9 +192,10 @@
      *
      * @param {Array} array The array.
      * @param {*} item The item to search for.
+     * @param {Object=} context The context of this.
      * @return {Number}
      */
-    exports.arrayIndexOf = function (array, item) {
+    exports.arrayIndexOf = function (array, item, context) {
         if (isEmptyArray(array)) {
             return -1;
         }
@@ -203,13 +204,22 @@
             throw exports.getTypeError('array', array, []);
         }
 
-        if (typeof Array.prototype.indexOf === 'function') {
-            return Array.prototype.indexOf.call(array, item);
-        }
+        // handle predicate function
+        if (exports.isFunction(item)) {
+            for (var a = 0, b = array.length; a < b; a++) {
+                if (item.call(context, array[a])) {
+                    return a;
+                }
+            }
+        } else {
+            if (typeof Array.prototype.indexOf === 'function') {
+                return Array.prototype.indexOf.call(array, item);
+            }
 
-        for (var i = 0, j = array.length; i < j; i++) {
-            if (array[i] === item) {
-                return i;
+            for (var i = 0, j = array.length; i < j; i++) {
+                if (array[i] === item) {
+                    return i;
+                }
             }
         }
 
@@ -221,10 +231,11 @@
      *
      * @param {Array} array The array.
      * @param {*} item The item to search for.
+     * @param {Object=} context The context of this.
      * @return {Boolean}
      */
-    exports.arrayHasItem = function (array, item) {
-        return exports.arrayIndexOf(array, item) > -1;
+    exports.arrayHasItem = function (array, item, context) {
+        return exports.arrayIndexOf(array, item, context) > -1;
     };
 
     /**

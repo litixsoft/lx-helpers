@@ -1,4 +1,4 @@
-# lx-helpers [![Build Status](https://travis-ci.org/litixsoft/lx-helpers.png?branch=master)](https://travis-ci.org/litixsoft/lx-helpers) [![david-dm](https://david-dm.org/litixsoft/lx-helpers.png)](https://david-dm.org/litixsoft/lx-helpers/) [![david-dm](https://david-dm.org/litixsoft/lx-helpers/dev-status.png)](https://david-dm.org/litixsoft/lx-helpers#info=devDependencies&view=table)
+# lx-helpers [![Build Status](https://img.shields.io/travis/litixsoft/lx-helpers/master.svg)](https://travis-ci.org/litixsoft/lx-helpers) [![david-dm](https://david-dm.org/litixsoft/lx-helpers.png)](https://david-dm.org/litixsoft/lx-helpers/) [![david-dm](https://david-dm.org/litixsoft/lx-helpers/dev-status.png)](https://david-dm.org/litixsoft/lx-helpers#info=devDependencies&view=table)
 
 Litixsoft helper functions for Javascript (client and server).
 
@@ -22,7 +22,7 @@ Lint and test your code using [grunt](http://gruntjs.com/).
 [Litixsoft GmbH](http://www.litixsoft.de)
 
 ## License
-Copyright (C) 2013 Litixsoft GmbH <info@litixsoft.de>
+Copyright (C) 2013-2014 Litixsoft GmbH <info@litixsoft.de>
 Licensed under the MIT license.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

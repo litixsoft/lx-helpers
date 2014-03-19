@@ -19,9 +19,8 @@ module.exports = function (grunt) {
             ' */\n\n',
         // Before generating any new files, remove any previously-created files.
         clean: {
-            jasmine: ['build/reports/jasmine'],
-            coverage: ['build/coverage'],
-            dist: ['dist']
+            reports: ['.reports'],
+            coverage: ['.reports/coverage']
         },
         concat: {
             options: {
@@ -30,7 +29,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['lib/<%= pkg.name %>.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: '<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -39,16 +38,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['<%= concat.dist.dest %>'],
-                dest: 'dist/<%= pkg.name %>.min.js'
-            }
-        },
-        compress: {
-            main: {
-                options: {
-                    mode: 'zip',
-                    archive: 'dist/<%= pkg.name %>.zip'
-                },
-                src: ['dist/<%= pkg.name %>.js', 'dist/<%= pkg.name %>.min.js']
+                dest: '<%= pkg.name %>.min.js'
             }
         },
         jshint: {
@@ -59,7 +49,7 @@ module.exports = function (grunt) {
             jslint: {
                 options: {
                     reporter: 'jslint',
-                    reporterOutput: 'build/reports/jshint.xml'
+                    reporterOutput: '.reports/lint/jshint.xml'
                 },
                 files: {
                     src: '<%= jshintFiles %>'
@@ -68,7 +58,7 @@ module.exports = function (grunt) {
             checkstyle: {
                 options: {
                     reporter: 'checkstyle',
-                    reporterOutput: 'build/reports/jshint_checkstyle.xml'
+                    reporterOutput: '.reports/lint/jshint_checkstyle.xml'
                 },
                 files: {
                     src: '<%= jshintFiles %>'
@@ -77,28 +67,34 @@ module.exports = function (grunt) {
         },
         bgShell: {
             coverage: {
-                cmd: 'node node_modules/istanbul/lib/cli.js cover --dir build/coverage node_modules/grunt-jasmine-node/node_modules/jasmine-node/bin/jasmine-node -- test --forceexit'
+                cmd: 'node node_modules/istanbul/lib/cli.js cover --dir .reports/coverage node_modules/grunt-jasmine-node/node_modules/jasmine-node/bin/jasmine-node -- test --forceexit'
             },
             cobertura: {
-                cmd: 'node node_modules/istanbul/lib/cli.js report --root build/coverage --dir build/coverage/cobertura cobertura'
+                cmd: 'node node_modules/istanbul/lib/cli.js report --root .reports/coverage --dir .reports/coverage/cobertura cobertura'
             }
         },
         open: {
             file: {
-                path: 'build/coverage/lcov-report/index.html'
+                path: '.reports/coverage/lcov-report/index.html'
             }
         },
         jasmine_node: {
-            specNameMatcher: './*.spec', // load only specs containing specNameMatcher
-            projectRoot: 'test',
-            requirejs: false,
-            forceExit: true,
-            verbose: false,
-            jUnit: {
-                report: true,
-                savePath: './build/reports/jasmine/',
-                useDotNotation: true,
-                consolidate: true
+            options: {
+                specNameMatcher: './*.spec', // load only specs containing specNameMatcher
+                requirejs: false,
+                forceExit: true
+            },
+            test: ['test/'],
+            ci: {
+                options: {
+                    jUnit: {
+                        report: true,
+                        savePath: '.reports/junit/',
+                        useDotNotation: true,
+                        consolidate: true
+                    }
+                },
+                src: ['test/']
             }
         },
         changelog: {
@@ -107,6 +103,7 @@ module.exports = function (grunt) {
         },
         bump: {
             options: {
+                files: ['package.json', 'bower.json'],
                 updateConfigs: ['pkg'],
                 commitFiles: ['-a'],
                 commitMessage: 'chore: release v%VERSION%',
@@ -122,10 +119,10 @@ module.exports = function (grunt) {
         grunt.log.ok('Registered git hook: commit-msg');
     });
 
-    grunt.registerTask('test', ['git:commitHook', 'clean:jasmine', 'jshint:test', 'jasmine_node']);
-    grunt.registerTask('build', ['clean:dist', 'test', 'concat', 'uglify', 'compress']);
+    grunt.registerTask('test', ['git:commitHook', 'jshint:test', 'jasmine_node:test']);
+    grunt.registerTask('build', ['test', 'concat', 'uglify']);
     grunt.registerTask('cover', ['clean:coverage', 'jshint:test', 'bgShell:coverage', 'open']);
-    grunt.registerTask('ci', ['clean', 'jshint:jslint', 'jshint:checkstyle', 'bgShell:coverage', 'bgShell:cobertura', 'jasmine_node']);
+    grunt.registerTask('ci', ['clean', 'jshint:jslint', 'jshint:checkstyle', 'bgShell:coverage', 'bgShell:cobertura', 'jasmine_node:ci']);
     grunt.registerTask('release', 'Bump version, update changelog and tag version', function (version) {
         grunt.task.run([
             'bump:' + (version || 'patch') + ':bump-only',

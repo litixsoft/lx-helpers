@@ -257,25 +257,16 @@ describe('LxHelpers', function () {
 
     describe('has a function arrayIndexOf() which', function () {
         it('should throw an exception when the parameter array is not of type Array', function () {
-            var func2 = function () { return lxHelpers.arrayIndexOf({}, function () {}); };
-            var func3 = function () { return lxHelpers.arrayIndexOf(1, function () {}); };
-            var func4 = function () { return lxHelpers.arrayIndexOf('1', function () {}); };
-            var func5 = function () { return lxHelpers.arrayIndexOf([1, 2], function () {}); };
-
-            expect(func2).toThrow();
-            expect(func3).toThrow();
-            expect(func4).toThrow();
-            expect(func5).not.toThrow();
+            expect(function () { return lxHelpers.arrayIndexOf({}, 1);}).toThrow();
+            expect(function () { return lxHelpers.arrayIndexOf(1, 1);}).toThrow();
+            expect(function () { return lxHelpers.arrayIndexOf('1', 1);}).toThrow();
+            expect(function () { return lxHelpers.arrayIndexOf([1, 2], 1);}).not.toThrow();
         });
 
         it('should return -1 when the parameter array is null, undefined or empty array', function () {
-            var item = lxHelpers.arrayIndexOf(null, function () {});
-            var item1 = lxHelpers.arrayIndexOf(undefined, function () {});
-            var item2 = lxHelpers.arrayIndexOf([], function () {});
-
-            expect(item).toBe(-1);
-            expect(item1).toBe(-1);
-            expect(item2).toBe(-1);
+            expect(lxHelpers.arrayIndexOf(null, 1)).toBe(-1);
+            expect(lxHelpers.arrayIndexOf(undefined, 1)).toBe(-1);
+            expect(lxHelpers.arrayIndexOf([], 1)).toBe(-1);
         });
 
         it('should return the index of the given item in the array', function () {
@@ -287,6 +278,37 @@ describe('LxHelpers', function () {
 
             expect(res1).toBe(1);
             expect(res2).toBe(2);
+        });
+
+        it('should return the index of the given item in the array also when the native indexOf function does not exists', function () {
+            var indexOfFunction = lxHelpers.clone(Array.prototype.indexOf);
+            Array.prototype.indexOf = 5;
+
+            var arr = [1, 2, 3];
+            var arr2 = ['1', '2', '3'];
+
+            var res1 = lxHelpers.arrayIndexOf(arr, 2);
+            var res2 = lxHelpers.arrayIndexOf(arr2, '3');
+
+            expect(res1).toBe(1);
+            expect(res2).toBe(2);
+
+            Array.prototype.indexOf = indexOfFunction;
+        });
+
+        it('should return the index when the item is a prediacte function', function () {
+            var arr = [
+                {id: 1, name: '1'},
+                {id: 2, name: '2'},
+                {id: 3, name: '3'},
+                {id: 4, name: '4'}
+            ];
+
+            var res = lxHelpers.arrayIndexOf(arr, function (item) {
+                return item.id === 3;
+            });
+
+            expect(res).toBe(2);
         });
 
         it('should return -1 if the given item is not in the array', function () {
@@ -333,6 +355,21 @@ describe('LxHelpers', function () {
 
             expect(res1).toBeTruthy();
             expect(res2).toBeTruthy();
+        });
+
+        it('should return true when the item is a prediacte function and it is evaluated to true', function () {
+            var arr = [
+                {id: 1, name: '1'},
+                {id: 2, name: '2'},
+                {id: 3, name: '3'},
+                {id: 4, name: '4'}
+            ];
+
+            var res = lxHelpers.arrayHasItem(arr, function (item) {
+                return item.id === 4;
+            });
+
+            expect(res).toBeTruthy();
         });
 
         it('should return false if the given item is not in the array', function () {
@@ -582,6 +619,10 @@ describe('LxHelpers', function () {
             expect(func8).not.toThrow();
         });
 
+        it('should throw an exception when the parameter acion is not of type function', function () {
+            expect(function () { return lxHelpers.objectForEach({}, 2); }).toThrow();
+        });
+
         it('should perform the action for each item of the object', function () {
             var obj = {
                 name: 'test',
@@ -593,6 +634,29 @@ describe('LxHelpers', function () {
             expect(Object.keys(obj).length).toBe(2);
             expect(obj.name).toBe('testAction');
             expect(obj.role).toBe('userAction');
+        });
+
+        it('should perform the action for each item of the object and break when the action function returns false', function () {
+            var obj = {
+                name: 'test',
+                role: 'user',
+                test: 1,
+                wayne: 2
+            };
+
+            lxHelpers.objectForEach(obj, function (key, value) {
+                if (value === 1) {
+                    return false;
+                }
+
+                obj[key] = value + 'Action';
+            });
+
+            expect(Object.keys(obj).length).toBe(4);
+            expect(obj.name).toBe('testAction');
+            expect(obj.role).toBe('userAction');
+            expect(obj.test).toBe(1);
+            expect(obj.wayne).toBe(2);
         });
     });
 
@@ -621,6 +685,19 @@ describe('LxHelpers', function () {
             expect(res[1]).toBe('userAction');
         });
 
+        it('should stop immediately when the object is empty', function () {
+            var obj = {},
+                arr = [],
+                res = [];
+
+            lxHelpers.forEach(obj, function (value, key) { obj[key] = value + 'Action'; });
+            lxHelpers.forEach(arr, function (value) { res.push(value + 'Action'); });
+
+            expect(Object.keys(obj).length).toBe(0);
+            expect(arr.length).toBe(0);
+            expect(res.length).toBe(0);
+        });
+
         it('should handle arrays and objects', function () {
             var data = {
                 obj: {
@@ -631,9 +708,9 @@ describe('LxHelpers', function () {
             };
             var res = [];
 
-            lxHelpers.forEach(data, function(value) {
+            lxHelpers.forEach(data, function (value) {
                 if (lxHelpers.isArray(value) || lxHelpers.isObject(value)) {
-                    lxHelpers.forEach(value, function(item) {
+                    lxHelpers.forEach(value, function (item) {
                         res.push(item + 'Action');
                     });
                 }
@@ -684,7 +761,7 @@ describe('LxHelpers', function () {
         it('should get the index of the current array element', function () {
             var data = ['a', 'b', 'c'];
 
-            lxHelpers.forEach(data, function(item, index) {
+            lxHelpers.forEach(data, function (item, index) {
                 data[index] = item + index;
             });
 

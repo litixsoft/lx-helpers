@@ -27,17 +27,17 @@
         "clone",
         "iterate"
     ],
-    "main": "./dist/lx-helpers.js",
+    "main": "./lx-helpers.js",
     "license": "MIT",
     "homepage": "https://github.com/litixsoft/lx-helpers",
     "ignore": [
-        "build",
         "lib",
-        ".dist",
         "node_modules",
         "test",
         ".*",
+        "CHANGELOG.md",
         "Gruntfile.js",
+        "LICENSE",
         "package.json",
         "validate-commit-msg.js"
     ],
