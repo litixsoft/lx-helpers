@@ -1,3 +1,12 @@
+<a name="0.5.1"></a>
+### 0.5.1 (2014-03-19)
+
+
+#### Features
+
+* arrayIndexOf() and arrayHasItem can now handle prediacte functions as item ([269042da](https://github.com/litixsoft/lx-helpers/commit/269042da9bb0d48a0e57c01540edcf8183da1237))
+
+
 <a name="0.5.0"></a>
 ## 0.5.0 (2014-02-19)
 
