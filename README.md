@@ -1,3 +1,6 @@
+    Project is deprecated. No continue development, no bugfixing anymore.
+---
+
 # lx-helpers [![Build Status](https://img.shields.io/travis/litixsoft/lx-helpers/master.svg)](https://travis-ci.org/litixsoft/lx-helpers) [![david-dm](https://david-dm.org/litixsoft/lx-helpers.png)](https://david-dm.org/litixsoft/lx-helpers/) [![david-dm](https://david-dm.org/litixsoft/lx-helpers/dev-status.png)](https://david-dm.org/litixsoft/lx-helpers#info=devDependencies&view=table)
 
 Litixsoft helper functions for Javascript (client and server).
